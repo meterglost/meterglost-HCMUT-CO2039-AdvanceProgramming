@@ -1,0 +1,23 @@
+{
+	"name": "hcmut-co2039-advanced-programming",
+	"type": "module",
+	"private": true,
+	"scripts": {
+		"start": "node --env-file=.env ./src/index.js",
+		"test": "node ./test/index.js",
+		"lint": "biome check ./src/",
+		"format": "prettier --check ./src/"
+	},
+	"dependencies": {
+		"cookie-parser": "^1.4.6",
+		"express": "^4.19.2",
+		"firebase": "^10.11.0",
+		"firebase-admin": "^12.0.0",
+		"validator": "^13.11.0"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "1.6.4",
+		"lefthook": "^1.6.10",
+		"prettier": "^3.2.5"
+	}
+}
