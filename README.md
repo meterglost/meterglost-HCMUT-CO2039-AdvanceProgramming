@@ -10,6 +10,10 @@
 
     https://console.firebase.google.com/project/_/settings/serviceaccounts
 
+-   `.env`
+
+    Config the admin account for managing the system
+
 ## Usage
 
 ```shell
