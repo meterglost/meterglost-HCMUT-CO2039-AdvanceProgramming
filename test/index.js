@@ -61,6 +61,15 @@ app.get("/create", (req, res) => {
 	`);
 });
 
+app.get("/delete", (req, res) => {
+	res.status(200).send(`
+		<form action="http://localhost:3000/api/user/delete" method="post">
+			<input type="text" name="uid" placeholder="UID" required />
+			<button type="submit">Delete</button>
+		</form>
+	`);
+});
+
 app.listen(port, () => {
 	console.log(`App running at http://localhost:${port}`);
 });

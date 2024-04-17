@@ -41,4 +41,22 @@ userAPI.post("/create", authorize(["admin"]), async (req, res) => {
 	return res.status(201).send("User created");
 });
 
+userAPI.post("/delete", authorize(["admin"]), async (req, res) => {
+	const { uid } = req.body;
+
+	if (!uid || typeof uid !== "string") {
+		return res.status(400).send("Invalid uid");
+	}
+
+	try {
+		await auth.deleteUser(uid);
+		await db.collection("users").doc(uid).delete();
+	} catch (error) {
+		console.error(error.code, error.message);
+		return res.status(400).send(error.message);
+	}
+
+	return res.status(200).send("User deleted");
+});
+
 export { userAPI };
