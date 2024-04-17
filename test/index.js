@@ -61,6 +61,15 @@ app.get("/create", (req, res) => {
 	`);
 });
 
+app.get("/update", (req,res) => {
+	res.status(200).send(`
+	<form action= "http://localhost:3000/api/user/update" method="post">
+		<input type= "text" name="name" placeholder="Name" required />
+		<button type="submit">Change</button>
+	</form>
+	`);
+});
+
 app.get("/delete", (req, res) => {
 	res.status(200).send(`
 		<form action="http://localhost:3000/api/user/delete" method="post">

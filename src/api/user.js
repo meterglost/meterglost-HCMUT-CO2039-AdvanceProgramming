@@ -41,6 +41,31 @@ userAPI.post("/create", authorize(["admin"]), async (req, res) => {
 	return res.status(201).send("User created");
 });
 
+userAPI.post("/update", authorize(["student"]), async (req, res) =>
+{	
+	const { name } = req.body;
+	if (!name || typeof name !== "string") {
+		return res.status(400).send("Invalid name");
+	}
+
+	const dataUpdate = 
+	{
+		infor : {
+			name: name
+		}
+	};
+	const uid = res.locals.uid;
+	try
+	{
+		await db.collection("users").doc(uid).update(dataUpdate.infor);
+	}
+	catch (error)
+	{
+		return res.status(400).send('Update unsuccessfully');
+	}
+	return res.status(200).send("Update successfully");
+});
+
 userAPI.post("/delete", authorize(["admin"]), async (req, res) => {
 	const { uid } = req.body;
 

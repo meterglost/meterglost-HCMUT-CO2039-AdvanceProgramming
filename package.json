@@ -4,9 +4,10 @@
 	"private": true,
 	"scripts": {
 		"start": "node --env-file=.env ./src/index.js",
-		"test": "node ./test/index.js",
+		"test": "nodemon ./test/index.js",
 		"lint": "biome check ./src/",
-		"format": "prettier --check ./src/"
+		"format": "prettier --check ./src/",
+		"dev": "nodemon --env-file=.env ./src/index.js"
 	},
 	"dependencies": {
 		"cookie-parser": "^1.4.6",
