@@ -5,10 +5,14 @@ const authenticate = () => {
 	return async (req, res, next) => {
 		const session = req.cookies?.session ?? "";
 
+		if (!session) {
+			return next();
+		}
+
 		try {
 			res.locals.userId = (await auth.verifySessionCookie(session, true)).uid;
 		} catch (error) {
-			res.locals.userId = "";
+			console.error(error.code, error.message);
 		}
 
 		if (!res.locals.userId) {
@@ -18,7 +22,7 @@ const authenticate = () => {
 		try {
 			res.locals.userRole = (await db.collection("users").doc(res.locals.userId).get()).data()?.role ?? "";
 		} catch (error) {
-			res.locals.userRole = "";
+			console.error(error.code, error.message);
 		}
 
 		return next();
