@@ -29,7 +29,7 @@ app.post("/signin", async (req, res) => {
 	try {
 		const { user } = await signInWithEmailAndPassword(auth, email, password);
 
-		const api_res = await fetch("http://localhost:3000/api/user/signin", {
+		const api_res = await fetch("http://localhost:3000/api/auth", {
 			method: "POST",
 			headers: {
 				Authorization: `Bearer ${await user.getIdToken()}`,
@@ -51,7 +51,7 @@ app.post("/signin", async (req, res) => {
 
 app.get("/signup", (req, res) => {
 	res.status(200).send(`
-		<form action="/api/user/signup" method="post">
+		<form action="http://localhost:3000/api/user/signup" method="post">
 			<input type="email" name="email" placeholder="Email" required />
 			<input type="password" name="password" placeholder="Password" required />
 			<input type="text" name="name" placeholder="Name" required />

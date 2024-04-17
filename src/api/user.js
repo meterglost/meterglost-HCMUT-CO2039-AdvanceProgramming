@@ -41,24 +41,4 @@ userAPI.post("/signup", authorize(["admin"]), async (req, res) => {
 	return res.status(201).send("User created");
 });
 
-userAPI.post("/signin", async (req, res) => {
-	if (!req.header("Authorization")?.startsWith("Bearer ")) {
-		return res.status(400).send("Token not provided");
-	}
-
-	const token = req.header("Authorization").split("Bearer ")[1];
-
-	try {
-		await auth.verifyIdToken(token);
-	} catch {
-		return res.status(400).send("Invalid token");
-	}
-
-	const sessionCookie = await auth.createSessionCookie(token, {
-		expiresIn: 1000 * 60 * 60 * 24 * 5,
-	});
-
-	return res.cookie("session", sessionCookie, { httpOnly: true, sameSite: "strict" }).status(200).send("Signed in");
-});
-
 export { userAPI };

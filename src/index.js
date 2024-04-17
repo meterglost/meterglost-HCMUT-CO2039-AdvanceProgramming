@@ -11,6 +11,10 @@ import { authenticate } from "./middleware.js";
 
 app.use(cookieParser(), authenticate());
 
+import { authAPI } from "./api/auth.js";
+
+app.use("/api/auth", authAPI);
+
 import { userAPI } from "./api/user.js";
 
 app.use("/api/user", userAPI);
