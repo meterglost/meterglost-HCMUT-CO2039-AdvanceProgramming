@@ -7,7 +7,7 @@ import User from "../model/user.js";
 
 const userAPI = express.Router();
 
-userAPI.post("/signup", authorize(["admin"]), async (req, res) => {
+userAPI.post("/create", authorize(["admin"]), async (req, res) => {
 	const { email, password, name, role } = req.body;
 
 	if (!email || typeof email !== "string" || !validator.isEmail(email)) {
