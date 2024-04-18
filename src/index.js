@@ -19,6 +19,14 @@ import { userAPI } from "./api/user.js";
 
 app.use("/api/user", userAPI);
 
+import { courseAPI } from "./api/course.js";
+
+app.use("/api/course", courseAPI);
+
+import { classAPI } from "./api/class.js";
+
+app.use("/api/class", classAPI);
+
 import "./bootstrap.js";
 
 app.listen(port, () => {
