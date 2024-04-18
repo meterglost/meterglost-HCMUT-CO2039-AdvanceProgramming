@@ -21,7 +21,7 @@
 	// Configure tool-specific properties.
 	"customizations": {
 		"vscode": {
-			"extensions": ["esbenp.prettier-vscode", "biomejs.biome"],
+			"extensions": ["esbenp.prettier-vscode", "biomejs.biome", "mhutchie.git-graph"],
 			"settings": {
 				"editor.defaultFormatter": "esbenp.prettier-vscode",
 				"editor.formatOnSave": true,
