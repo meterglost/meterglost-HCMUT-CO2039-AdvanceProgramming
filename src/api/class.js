@@ -92,8 +92,8 @@ classAPI.post("/enroll", authorize(["student", "teacher"]), async (req, res) => 
 
 		const filter = Filter.and(
 			Filter.where("course_id", "==", course_id),
-			Filter.where("students_id", "array-contains", res.locals.userId),
-		)
+			Filter.where("students_id", "array-contains", res.locals.userId)
+		);
 
 		if (!(await db.collection("class").where(filter).get()).empty) {
 			return res.status(400).send("Already enrolled in this course");
