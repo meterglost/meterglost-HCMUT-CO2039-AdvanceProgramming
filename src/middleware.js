@@ -5,8 +5,8 @@ const authenticate = () => {
 	return async (req, res, next) => {
 		const session = req.cookies?.session ?? "";
 
-		if (!session) {
-			return next();
+		if (typeof session !== "string" || session === "") {
+			return res.status(401).redirect("/login");
 		}
 
 		try {
@@ -15,14 +15,18 @@ const authenticate = () => {
 			console.error(error.code, error.message);
 		}
 
-		if (!res.locals.userId) {
-			return next();
+		if (typeof res.locals.userId !== "string" || res.locals.userId === "") {
+			return res.clearCookie("session").status(401).redirect("/login");
 		}
 
 		try {
 			res.locals.userRole = (await db.collection("users").doc(res.locals.userId).get()).data()?.role ?? "";
 		} catch (error) {
 			console.error(error.code, error.message);
+		}
+
+		if (typeof res.locals.userRole !== "string" || res.locals.userRole === "") {
+			return res.clearCookie("session").status(401).redirect("/login").send("Unauthorized");
 		}
 
 		return next();

@@ -59,4 +59,41 @@ userAPI.post("/delete", authorize(["admin"]), async (req, res) => {
 	return res.status(200).send("User deleted");
 });
 
+userAPI.post("/update", async (req, res) => {
+	const { uid, email, password, name, role } = req.body;
+
+	if (!uid || typeof uid !== "string") {
+		return res.status(400).send("Invalid uid");
+	}
+
+	if (uid !== res.locals.userId && !res.locals.userRole !== "admin") {
+		return res.status(403).send();
+	}
+
+	if (!email || typeof email !== "string" || !validator.isEmail(email)) {
+		return res.status(400).send("Invalid email");
+	}
+
+	if (!password || typeof password !== "string" || !validator.isStrongPassword(password)) {
+		return res.status(400).send("Invalid password");
+	}
+
+	if (!role || typeof role !== "string" || !User.Roles.includes(role)) {
+		return res.status(400).send("Invalid role");
+	}
+
+	if (!name || typeof name !== "string") {
+		return res.status(400).send("Invalid name");
+	}
+
+	try {
+		await db.collection("users").doc(uid).update({ email, name, role });
+	} catch (error) {
+		console.error(error);
+		return res.status(500).send("Internal server error");
+	}
+
+	return res.status(200).send("User information updated");
+});
+
 export { userAPI };
